@@ -1,0 +1,20 @@
+services:
+  one:
+    image: alpine
+    command: sleep 9999999
+    networks:
+      net:
+        aliases:
+          - service_one
+
+  two:
+    image: alpine
+    command: sleep 444444444
+    networks:
+      net:
+        aliases:
+          - service_two
+
+networks:
+  net:
+    driver: bridge

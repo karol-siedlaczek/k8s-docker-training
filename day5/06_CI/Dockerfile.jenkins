@@ -1,0 +1,3 @@
+FROM jenkins/jenkins:lts
+USER root
+RUN curl -fsSL https://get.docker.com | shConfigMap pozwala wrzucic zmienne środowiskowe do kontenera, lub pliki konfiguracyjne (cm może być współdzielony)ConfigMap pozwala wrzucic zmienne środowiskowe do kontenera, lub pliki konfiguracyjne (cm może być współdzielony)ConfigMap pozwala wrzucic zmienne środowiskowe do kontenera, lub pliki konfiguracyjne (cm może być współdzielony)f

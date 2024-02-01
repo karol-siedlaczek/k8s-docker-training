@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python
+spec:
+  selector:
+    app: python
+  ports:
+  - port: 5002
+    targetPort: 5002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python
+  labels:
+    projekt: python
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+        projekt: python
+    spec:
+      containers:
+      - name: python
+        image: krajewskim/python-api:new
+        resources: {}
+        ports:
+        - containerPort: 5002
+          name: api
+        envFrom:
+          - configMapRef:
+              name: python-cm
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: api
+        readinessProbe:
+          tcpSocket:
+            port: api
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: python-cm
+  labels:
+    projekt: python
+data:
+  REDIS_HOST: redis-service
+  LOG_LEVEL: INFO
+  REDIS_PORT: "6379"

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karol
+spec:
+  selector:
+    matchLabels:
+      app: karol
+  template:
+    metadata:
+      labels:
+        app: karol
+    spec:
+      containers:
+      - name: karol
+        image: krajewskim/nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: <Port>

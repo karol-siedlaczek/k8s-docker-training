@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: python-counter
+  labels: 
+    projekt: python
+spec:
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 1
+  schedule: "* * * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        projekt: python
+    spec:
+      template:
+        spec:
+          containers:
+          - name: counter
+            image: cmd.cat/curl
+            command:
+            - curl
+            - -XPOST
+            - python-service/api/v1/info
+          restartPolicy: Never
